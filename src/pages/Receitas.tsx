@@ -38,6 +38,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useCategorias } from "@/hooks/useCategorias";
 import { useReceitas } from "@/hooks/useReceitas";
 import { EditarReceitaModal } from "@/components/EditarReceitaModal";
+import { CategoriaSelect } from "@/components/CategoriaSelect";
 
 interface Receita {
   id: string;
@@ -518,25 +519,16 @@ const Receitas = () => {
 
                   <div className="space-y-2">
                     <Label htmlFor="categoria">Categoria *</Label>
-                    <select
-                      id="categoria"
-                      title="Selecionar categoria"
+                    <CategoriaSelect
+                      tipo="receita"
                       value={novaReceita.categoria}
-                      onChange={(e) =>
+                      onChange={(categoria) =>
                         setNovaReceita({
                           ...novaReceita,
-                          categoria: e.target.value,
+                          categoria,
                         })
                       }
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                    >
-                      <option value="">Selecione uma categoria</option>
-                      {categoriasReceita.map((categoria) => (
-                        <option key={categoria.id} value={categoria.nome}>
-                          {categoria.nome}
-                        </option>
-                      ))}
-                    </select>
+                    />
                   </div>
 
                   <div className="space-y-2">

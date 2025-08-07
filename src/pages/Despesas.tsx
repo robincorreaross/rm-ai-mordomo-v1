@@ -38,6 +38,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useCategorias } from "@/hooks/useCategorias";
 import { useDespesas } from "@/hooks/useDespesas";
 import { EditarDespesaModal } from "@/components/EditarDespesaModal";
+import { CategoriaSelect } from "@/components/CategoriaSelect";
 
 interface Despesa {
   id: string;
@@ -516,25 +517,16 @@ const Despesas = () => {
 
                   <div className="space-y-2">
                     <Label htmlFor="categoria">Categoria *</Label>
-                    <select
-                      id="categoria"
-                      title="Selecionar categoria"
+                    <CategoriaSelect
+                      tipo="despesa"
                       value={novaDespesa.categoria}
-                      onChange={(e) =>
+                      onChange={(categoria) =>
                         setNovaDespesa({
                           ...novaDespesa,
-                          categoria: e.target.value,
+                          categoria,
                         })
                       }
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                    >
-                      <option value="">Selecione uma categoria</option>
-                      {categoriasDespesa.map((categoria) => (
-                        <option key={categoria.id} value={categoria.nome}>
-                          {categoria.nome}
-                        </option>
-                      ))}
-                    </select>
+                    />
                   </div>
 
                   <div className="space-y-2">
