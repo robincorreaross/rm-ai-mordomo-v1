@@ -6,25 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useCategorias } from "@/hooks/useCategorias";
-
-interface Divida {
-  id: string;
-  descricao: string;
-  valor_total: number;
-  valor_pago: number;
-  valor_restante: number;
-  data_vencimento: string;
-  parcelas: number;
-  parcelas_pagas: number;
-  status: 'pendente' | 'vencida' | 'quitada';
-  categoria?: string;
-  categorias?: {
-    nome: string;
-    cor: string;
-    icone: string;
-  };
-  credor: string;
-}
+import { type Divida } from "@/hooks/useDividas";
 
 interface EditarDividaModalProps {
   isOpen: boolean;
@@ -54,7 +36,7 @@ export const EditarDividaModal = ({ isOpen, onClose, divida, onSave }: EditarDiv
       setDataVencimento(divida.data_vencimento || '');
       setParcelas(divida.parcelas?.toString() || '');
       setParcelasPagas(divida.parcelas_pagas?.toString() || '0');
-      setCategoria(divida.categorias?.nome || divida.categoria || '');
+      setCategoria(divida.categorias?.nome || '');
       setCredor(divida.credor || '');
     }
   }, [divida]);
@@ -85,7 +67,6 @@ export const EditarDividaModal = ({ isOpen, onClose, divida, onSave }: EditarDiv
       data_vencimento: dataVencimento,
       parcelas: parcelasNum,
       parcelas_pagas: parcelasPagasNum,
-      categoria,
       credor,
       status: parcelasPagasNum >= parcelasNum ? 'quitada' : 
                new Date(dataVencimento) < new Date() ? 'vencida' : 'pendente'
