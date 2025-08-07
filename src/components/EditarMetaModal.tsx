@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { useCategoriasMetas } from "@/hooks/useCategoriasMetas";
+import { CategoriaMetaSelect } from "@/components/CategoriaMetaSelect";
 
 // Função para formatar a data para o formato do input date (YYYY-MM-DD)
 const formatDateForInput = (dateString: string) => {
@@ -71,7 +71,6 @@ export const EditarMetaModal = ({
   onEditarMeta,
 }: EditarMetaModalProps) => {
   const { toast } = useToast();
-  const { categoriasMetas } = useCategoriasMetas();
   const [formData, setFormData] = useState({
     titulo: "",
     tipo: "economia" as "economia" | "receita" | "despesa" | "investimento",
@@ -154,9 +153,6 @@ export const EditarMetaModal = ({
 
   if (!meta) return null;
 
-  // Filtra apenas categorias ativas
-  const categoriasAtivas = categoriasMetas.filter((cat) => cat.ativa);
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -178,23 +174,10 @@ export const EditarMetaModal = ({
 
             <div className="space-y-2">
               <Label htmlFor="categoria_meta_id">Categoria *</Label>
-              <Select
+              <CategoriaMetaSelect
                 value={formData.categoria_meta_id}
-                onValueChange={(value) =>
-                  handleInputChange("categoria_meta_id", value)
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione uma categoria" />
-                </SelectTrigger>
-                <SelectContent>
-                  {categoriasAtivas.map((categoria) => (
-                    <SelectItem key={categoria.id} value={categoria.id}>
-                      {categoria.nome}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                onChange={(value) => handleInputChange("categoria_meta_id", value)}
+              />
             </div>
           </div>
 

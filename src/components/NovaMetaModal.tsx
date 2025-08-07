@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { CategoriaMetaSelect } from "@/components/CategoriaMetaSelect";
 
 interface MetaForm {
   titulo: string;
@@ -123,20 +124,10 @@ export const NovaMetaModal = ({ onAdicionarMeta, categoriasMetas }: NovaMetaModa
 
             <div className="space-y-2">
               <Label htmlFor="categoria">Categoria *</Label>
-              <select
-                id="categoria"
+              <CategoriaMetaSelect
                 value={formData.categoriaId}
-                onChange={(e) => handleInputChange('categoriaId', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                required
-              >
-                <option value="">Selecione uma categoria</option>
-                {categoriasMetas.map(categoria => (
-                  <option key={categoria.id} value={categoria.id}>
-                    {categoria.nome}
-                  </option>
-                ))}
-              </select>
+                onChange={(value) => handleInputChange('categoriaId', value)}
+              />
             </div>
           </div>
 
