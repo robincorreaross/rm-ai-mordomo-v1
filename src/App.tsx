@@ -14,14 +14,16 @@ import IA from "./pages/IA";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { ThemeProvider } from "./components/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
 import "./App.css";
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-background">
-        <Routes>
+    <ThemeProvider defaultTheme="light" storageKey="gasteiquanto-ui-theme">
+      <Router>
+        <div className="min-h-screen bg-background">
+          <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route
@@ -120,11 +122,12 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Toaster />
-      </div>
-    </Router>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <Toaster />
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 
